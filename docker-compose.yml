@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: erp
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  backend:
+    build: ./backend
+    command: sh -c "npx prisma migrate deploy && node dist/server.js"
+    volumes:
+      - ./backend:/app
+    ports:
+      - '4000:4000'
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/erp
+      - JWT_SECRET=your_jwt_secret_here
+    depends_on:
+      - db
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+volumes:
+  db_data: 
