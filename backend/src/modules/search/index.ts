@@ -20,9 +20,9 @@ router.get('/', async (req, res) => {
     const employees = await prisma.employee.findMany({
       where: {
         OR: [
-          { firstName: { contains: searchTerm, mode: 'insensitive' } },
-          { lastName: { contains: searchTerm, mode: 'insensitive' } },
-          { email: { contains: searchTerm, mode: 'insensitive' } }
+          { firstName: { contains: searchTerm } },
+          { lastName: { contains: searchTerm } },
+          { email: { contains: searchTerm } }
         ]
       }
     });
@@ -39,8 +39,8 @@ router.get('/', async (req, res) => {
     const customers = await prisma.customer.findMany({
       where: {
         OR: [
-          { name: { contains: searchTerm, mode: 'insensitive' } },
-          { email: { contains: searchTerm, mode: 'insensitive' } }
+          { name: { contains: searchTerm } },
+          { email: { contains: searchTerm } }
         ]
       }
     });
@@ -58,8 +58,8 @@ router.get('/', async (req, res) => {
     const tasks = await prisma.task.findMany({
       where: {
         OR: [
-          { name: { contains: searchTerm, mode: 'insensitive' } },
-          { description: { contains: searchTerm, mode: 'insensitive' } }
+          { name: { contains: searchTerm } },
+          { description: { contains: searchTerm } }
         ]
       },
       include: { project: true }
@@ -78,14 +78,14 @@ router.get('/', async (req, res) => {
     const products = await prisma.product.findMany({
       where: {
         OR: [
-          { name: { contains: searchTerm, mode: 'insensitive' } },
-          { sku: { contains: searchTerm, mode: 'insensitive' } }
+          { name: { contains: searchTerm } },
+          { sku: { contains: searchTerm } }
         ]
       },
       include: { stock: true }
     });
     for (const prod of products) {
-      const stockQuantity = prod.stock?.reduce((sum, s) => sum + s.quantity, 0) || 0;
+      const stockQuantity = prod.stock?.reduce((sum: number, s: any) => sum + s.quantity, 0) || 0;
       results.push({
         type: 'Product',
         id: prod.id,
@@ -100,7 +100,7 @@ router.get('/', async (req, res) => {
     const projects = await prisma.project.findMany({
       where: {
         OR: [
-          { name: { contains: searchTerm, mode: 'insensitive' } }
+          { name: { contains: searchTerm } }
         ]
       },
       include: { customer: true }
