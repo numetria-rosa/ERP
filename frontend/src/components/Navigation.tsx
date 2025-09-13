@@ -38,11 +38,11 @@ const Navigation = () => {
     <nav className="bg-white shadow-sm border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex">
+          <div className="flex flex-1 min-w-0">
             <div className="flex-shrink-0 flex items-center">
               <h1 className="text-xl font-bold text-gray-900">ERP System</h1>
             </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <div className="hidden sm:ml-6 sm:flex sm:space-x-4 lg:space-x-6 xl:space-x-8 flex-1 min-w-0">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.path;
@@ -50,14 +50,15 @@ const Navigation = () => {
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium whitespace-nowrap ${
                       isActive
                         ? 'border-blue-500 text-gray-900'
                         : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                     }`}
                   >
-                    <Icon className="w-4 h-4 mr-2" />
-                    {item.label}
+                    <Icon className="w-4 h-4 mr-1 lg:mr-2" />
+                    <span className="hidden lg:inline">{item.label}</span>
+                    <span className="lg:hidden">{item.label.charAt(0)}</span>
                   </Link>
                 );
               })}
@@ -65,8 +66,8 @@ const Navigation = () => {
           </div>
           
           {/* Desktop Navigation */}
-          <div className="hidden sm:flex items-center space-x-2">
-            <div className="hidden md:block">
+          <div className="hidden sm:flex items-center space-x-1 lg:space-x-2 flex-shrink-0">
+            <div className="hidden lg:block">
               <GlobalSearch />
             </div>
             <NotificationCenter />
@@ -78,7 +79,7 @@ const Navigation = () => {
               size="sm"
             >
               {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              <span className="hidden lg:inline ml-2">
+              <span className="hidden xl:inline ml-2">
                 {theme === 'dark' ? 'Light' : 'Dark'}
               </span>
             </Button>
@@ -89,7 +90,7 @@ const Navigation = () => {
               size="sm"
             >
               <LogOut className="w-4 h-4" />
-              <span className="hidden lg:inline ml-2">Logout</span>
+              <span className="hidden xl:inline ml-2">Logout</span>
             </Button>
           </div>
 
