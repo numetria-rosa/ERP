@@ -1,6 +1,6 @@
 # ERP (Enterprise Resource Planning) System
 
-A modern, full-stack ERP web application with modular architecture, built with React, Node.js, Express, PostgreSQL, Prisma, and more.
+A modern, full-stack ERP web application with modular architecture, built with , and more.
 
 ## Features
 - Modular ERP: HR, Accounting, Inventory, CRM, Projects, Reports
